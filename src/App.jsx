@@ -6,17 +6,13 @@ import Dashboard from "./pages/admin/Dashboard.jsx";
 import Login from "./pages/admin/Login.jsx";
 import "./App.css";
 import { useEffect, useState } from "react";
-import Main from "./pages/Main.jsx"
 import UpdatePassword from "./pages/admin/components/UpdatePassword.jsx";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import ResetPassword from "./pages/admin/components/ResetPassword.jsx";
 import AdminProfile from "./pages/admin/components/AdminProfile.jsx";
 import SaveUser from "./pages/admin/components/SaveUser.jsx";
-import Vision from "./pages/vision/Vision.jsx"
-import Contactus from "./pages/contactus/Contactus.jsx";
-import Navbar from "./pages/navbar/Navbar.jsx";
-
+import AdminNavbar from "./pages/admin/components/AdminNavbar.jsx";
 function App() {
     const [userLogged, setUser] = useState(null);
     const [isFetching, setIsFetching] = useState(false);
@@ -37,7 +33,7 @@ function App() {
            <ToastContainer/>
            {isFetching ? (
                <>
-               <Navbar onSignOut={handleSignout}/>
+               <AdminNavbar onSignOut={handleSignout}/>
                    <Routes>
                        <Route index path="/dashboard" element={<Dashboard />} />
                        <Route path="/update-password" element={<UpdatePassword/>} />
@@ -48,7 +44,7 @@ function App() {
            ) : (
                <Routes>
                    <Route path={"/"} element={<Login onLogin={() => setIsFetching(true)} />} />
-                   <Route path={"/admin-login"} element={<Login onLogin={() => setIsFetching(true)} />} />
+                   <Route path={"/login"} element={<Login onLogin={() => setIsFetching(true)} />} />
                    <Route path={"/reset-password"} element={<ResetPassword/>}></Route>
                </Routes>
            )}
