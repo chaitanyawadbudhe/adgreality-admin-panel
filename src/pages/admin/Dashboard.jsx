@@ -63,7 +63,9 @@ const Dashboard = () => {
         worksheet.columns = [
             { header: 'Name', key: 'name', width: 30 },
             { header: 'Email', key: 'email', width: 30 },
-            { header: 'Created At', key: 'createdAt', width: 20 },
+            { header: 'Contact no.', key: 'phone', width: 30 },
+            { header: 'Message', key: 'message', width: 30 },
+            { header: 'Contacted on', key: 'createdAt', width: 20 },
         ];
 
         // Add rows for each user in Firestore
@@ -71,6 +73,8 @@ const Dashboard = () => {
             worksheet.addRow({
                 name: user.name,
                 email: user.email,
+                phone: user.phone,
+                message: user.message,
                 createdAt: user.createdAt ? user.createdAt.toDate().toLocaleString() : 'N/A', // Format timestamp
             });
         });
@@ -95,7 +99,7 @@ const Dashboard = () => {
                         id="startDate"
                         value={startDate}
                         onChange={(e) => setStartDate(e.target.value)}
-                        className="w-full border-2 border-gray-300 rounded-lg px-4 py-2 mt-2 focus:outline-none focus:border-blue-500"
+                        className="w-full border-2 border-gray-300 rounded-lg px-4 py-2 mt-2 focus:outline-none focus:border-[#6cb4b0]"
                     />
                 </div>
 
@@ -106,7 +110,7 @@ const Dashboard = () => {
                         id="endDate"
                         value={endDate}
                         onChange={(e) => setEndDate(e.target.value)}
-                        className="w-full border-2 border-gray-300 rounded-lg px-4 py-2 mt-2 focus:outline-none focus:border-blue-500"
+                        className="w-full border-2 border-gray-300 rounded-lg px-4 py-2 mt-2 focus:outline-none focus:border-[#6cb4b0]"
                     />
                 </div>
             </div>
@@ -115,7 +119,7 @@ const Dashboard = () => {
             <div className="mb-6">
                 <button
                     onClick={fetchUserData}
-                    className={`w-full sm:w-auto bg-blue-600 text-white px-6 py-3 rounded-lg ${loading && 'opacity-50 cursor-not-allowed'} transition duration-300 ease-in-out hover:bg-blue-700`}
+                    className={`w-full sm:w-auto bg-[#6cb4b0] text-white px-6 py-3 rounded-lg ${loading && 'opacity-50 cursor-not-allowed'} transition duration-300 ease-in-out hover:bg-[#549cac]`}
                     disabled={loading}
                 >
                     {loading ? 'Loading...' : 'Fetch Data'}
@@ -130,11 +134,13 @@ const Dashboard = () => {
                 <>
                     <div className="mt-6 overflow-x-auto bg-gray-50 shadow-md rounded-lg">
                         <table className="min-w-full table-auto border-collapse">
-                            <thead className="bg-blue-600 text-white">
+                            <thead className="bg-[#6cb4b0] text-white">
                             <tr>
                                 <th className="px-6 py-3 text-left">Name</th>
                                 <th className="px-6 py-3 text-left">Email</th>
-                                <th className="px-6 py-3 text-left">Created At</th>
+                                <th className="px-6 py-3 text-left">Contact No.</th>
+                                <th className="px-6 py-3 text-left">Message</th>
+                                <th className="px-6 py-3 text-left">Contact Date</th>
                             </tr>
                             </thead>
                             <tbody>
@@ -142,6 +148,8 @@ const Dashboard = () => {
                                 <tr key={index} className="bg-white border-b hover:bg-gray-100">
                                     <td className="px-6 py-4">{user.name}</td>
                                     <td className="px-6 py-4">{user.email}</td>
+                                    <td className="px-6 py-4">{user.phone}</td>
+                                    <td className="px-6 py-4">{user.message}</td>
                                     <td className="px-6 py-4">
                                         {user.createdAt ? new Date(user.createdAt.seconds * 1000).toLocaleString() : 'N/A'}
                                     </td>
@@ -154,7 +162,7 @@ const Dashboard = () => {
                     <div className="mt-6 flex justify-center">
                         <button
                             onClick={exportToExcel}
-                            className="bg-green-600 text-white px-6 py-3 rounded-lg hover:bg-green-700 transition duration-300 ease-in-out"
+                            className="bg-[#6cb4b0] text-white px-6 py-3 rounded-lg hover:bg-[#549cac] transition duration-300 ease-in-out"
                         >
                             Export Data to Excel
                         </button>
